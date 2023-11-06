@@ -26,7 +26,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+     'corsheaders',
     'rest_framework.authtoken',
     'userauth'
 ]
@@ -49,6 +51,27 @@ REST_FRAMEWORK = {
     ],
 }
 
+# Allow all origins for development, or you can specify your frontend's domain in production.
+CORS_ALLOW_ALL_ORIGINS = True
+
+# Allow credentials (e.g., cookies) to be sent cross-origin.
+CORS_ALLOW_CREDENTIALS = True
+
+# Allow specific headers.
+CORS_ALLOW_HEADERS = [
+    'Authorization',  # Allow the 'Authorization' header for token-based authentication.
+    'Content-Type',
+]
+
+# Allow specific methods.
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -57,6 +80,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'merocv.urls'
