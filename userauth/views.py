@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 class HomeView(TemplateView):
     template_name = "index.html"
@@ -44,6 +45,7 @@ class RegisterUserAPIView(generics.CreateAPIView):
 
 class UserLoginAPI(APIView):
     serializer_class = LoginSerializer
+    permission_classes = (AllowAny,)
     def post(self, request, *args, **kwargs):
         username = request.data.get("username")
         password = request.data.get("password")
