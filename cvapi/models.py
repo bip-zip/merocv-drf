@@ -45,8 +45,8 @@ class Certification(models.Model):
     address = models.CharField(max_length=499)
     degree = models.CharField(max_length=300)
     completion_date = models.DateField()
-    grade = models.CharField(max_length=3)
-    percentage = models.PositiveSmallIntegerField()
+    grade = models.CharField(max_length=3, null=True)
+    percentage = models.PositiveSmallIntegerField(null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self) -> str:

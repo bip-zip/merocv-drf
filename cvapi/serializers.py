@@ -49,14 +49,31 @@ class WorkExperienceSerializer(serializers.ModelSerializer):
             raise ValueError("Request context not available in the serializer.")
 
 class CertificationSerializer(serializers.ModelSerializer):
-    user =  user = UserInfoSerializer()
-
     class Meta:
         model = Certification
         fields = '__all__'
+        read_only_fields = ('user',)  # Make the 'user' field read-only
+
+    def create(self, validated_data):
+        request = self.context.get('request')
+        if request:
+            user = request.user
+            validated_data['user'] = user
+            return Certification.objects.create(**validated_data)
+        else:
+            raise ValueError("Request context not available in the serializer.")
 
 class SkillHighlightSerializer(serializers.ModelSerializer):
-    user =  user = UserInfoSerializer()
     class Meta:
         model = SkillHighlight
         fields = '__all__'
+        read_only_fields = ('user',)  # Make the 'user' field read-only
+
+    def create(self, validated_data):
+        request = self.context.get('request')
+        if request:
+            user = request.user
+            validated_data['user'] = user
+            return SkillHighlight.objects.create(**validated_data)
+        else:
+            raise ValueError("Request context not available in the serializer.")
