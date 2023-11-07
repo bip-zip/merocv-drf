@@ -8,5 +8,6 @@ urlpatterns = [
   path('admin/', admin.site.urls),
   path('',HomeView.as_view()),
   path('auth/',include('userauth.urls')),
+  path('cv/',include('cvapi.urls')),
   path('api-token-auth', views.obtain_auth_token)
 ]

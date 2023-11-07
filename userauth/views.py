@@ -51,8 +51,9 @@ class UserLoginAPI(APIView):
         user = authenticate(username=username, password=password)
         
         if user is not None:
+            rusername = username.split("@")[0]
             token, created = Token.objects.get_or_create(user=user)
-            return Response({"token": token.key}, status=status.HTTP_200_OK)
+            return Response({"token": token.key,'username':rusername}, status=status.HTTP_200_OK)
         else:
             return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
 
