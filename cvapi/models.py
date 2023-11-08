@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 class UserInfo(models.Model):
     user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+    role = models.CharField(max_length=100,null=True)
     firstname = models.CharField(max_length=99)
     lastname = models.CharField(max_length=99)
     contact = models.CharField(max_length=10)

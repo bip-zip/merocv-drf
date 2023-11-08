@@ -59,6 +59,16 @@ class WorkExperienceCreateView(APIView):
                 {"detail": "User information not found."},
                 status=status.HTTP_404_NOT_FOUND
             )
+    def delete(self, request, *args, **kwargs):
+        try:
+            experience = WorkExperience.objects.get(pk=kwargs['pk'], user=request.user)
+            experience.delete()
+            return Response({"detail": "Workexperience deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+        except WorkExperience.DoesNotExist:
+            return Response(
+                {"detail": "Workexperience not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
         
 class EducationCreateView(APIView):
     authentication_classes = [TokenAuthentication]
@@ -82,6 +92,16 @@ class EducationCreateView(APIView):
         except UserInfo.DoesNotExist:
             return Response(
                 {"detail": "User information not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+    def delete(self, request, *args, **kwargs):
+        try:
+            education = Education.objects.get(pk=kwargs['pk'], user=request.user)
+            education.delete()
+            return Response({"detail": "Education deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+        except Education.DoesNotExist:
+            return Response(
+                {"detail": "Education not found."},
                 status=status.HTTP_404_NOT_FOUND
             )
 
@@ -110,6 +130,16 @@ class CertificationCreateView(APIView):
                 {"detail": "User information not found."},
                 status=status.HTTP_404_NOT_FOUND
             )
+    def delete(self, request, *args, **kwargs):
+        try:
+            certification = Certification.objects.get(pk=kwargs['pk'], user=request.user)
+            certification.delete()
+            return Response({"detail": "Certification deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+        except Certification.DoesNotExist:
+            return Response(
+                {"detail": "SkillHighlight not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
 
 class SkillHighlightCreateView(APIView):
     authentication_classes = [TokenAuthentication]
@@ -133,5 +163,16 @@ class SkillHighlightCreateView(APIView):
         except UserInfo.DoesNotExist:
             return Response(
                 {"detail": "User information not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+    
+    def delete(self, request, *args, **kwargs):
+        try:
+            skillhighlight = SkillHighlight.objects.get(pk=kwargs['pk'], user=request.user)
+            skillhighlight.delete()
+            return Response({"detail": "SkillHighlight deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+        except SkillHighlight.DoesNotExist:
+            return Response(
+                {"detail": "SkillHighlight not found."},
                 status=status.HTTP_404_NOT_FOUND
             )
