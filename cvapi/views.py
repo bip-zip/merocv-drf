@@ -13,6 +13,7 @@ class UserInfoCreateUpdateView(APIView):
     def post(self, request, *args, **kwargs):
         try:
             # Retrieve the UserInfo object for the authenticated user
+            print(request.data)
             user_info = UserInfo.objects.get(user=request.user)
             serializer = UserInfoSerializer(user_info, data=request.data)
         except UserInfo.DoesNotExist:
@@ -21,7 +22,7 @@ class UserInfoCreateUpdateView(APIView):
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def get(self, request, *args, **kwargs):
