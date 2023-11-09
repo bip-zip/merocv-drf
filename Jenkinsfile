@@ -25,7 +25,7 @@ pipeline {
     stage('Run Docker Container') {
     steps {
         script {
-            docker.image($repo:v$BUILD_NUMBER').run("-d -p 8000:8000")
+             sh "docker run -d -p 8000:8000 $repo:v$BUILD_NUMBER"
         }
     }
 }
