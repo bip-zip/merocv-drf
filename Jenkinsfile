@@ -25,7 +25,8 @@ pipeline {
     stage('Run Docker Container') {
     steps {
         script {
-             sh "docker run -d -p 8000:8000 $repo:v$BUILD_NUMBER"
+             sh "docker run -p 8000:8000 $repo:v$BUILD_NUMBER"
+             // sh "docker run -d -p 8000:8000 $repo:v$BUILD_NUMBER"
         }
     }
 }
