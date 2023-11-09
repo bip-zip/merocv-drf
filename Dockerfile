@@ -5,9 +5,18 @@ WORKDIR /merocv/
 
 COPY requirements.txt /merocv/
 
+# Install Python dependencies
 RUN pip install -r requirements.txt
 
+# Copy the application code
 COPY . /merocv/
+
+# Run database migrations
+RUN python manage.py makemigrations
+RUN python manage.py migrate
+
+# Collect static files
+RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
