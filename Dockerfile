@@ -7,7 +7,7 @@ COPY requirements.txt /merocv/
 
 RUN pip install -r requirements.txt
 
-COPY app/ /merocv/app/
+COPY . /merocv/
 
 EXPOSE 8000
 
